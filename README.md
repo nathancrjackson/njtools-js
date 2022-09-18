@@ -2,12 +2,12 @@
 
 _A personal JS toolbox_
 
-Ocassionally I need to do some things in JavaScript and this is the neatest way to manage that.
+Occasionally I need to do some things in JavaScript and this is the neatest way to manage that.
 
 ## Resources
 - [Basic documentation](DOCS.md)
-- [Code examples](https://njit.io/demo/njtools-js/examples)
-- [Demo site](https://njit.io/demo/njtools-js/)
+- [Code examples](https://njit.io/projects/njtools-js/examples/)
+- [Demo site](https://njit.io/projects/njtools-js/demo/)
 
 ## Todo
 - Complete more code examples

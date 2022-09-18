@@ -48,7 +48,7 @@ window.njt.element = new (function()
 				element.className = classString;
 			}
 
-			if (window.njt.js.typeOf(innerHTMLString) === window.njt.types.STRING)
+			if ((window.njt.js.typeOf(innerHTMLString) === window.njt.types.STRING) || (window.njt.js.typeOf(innerHTMLString) === window.njt.types.NUMBER) || (window.njt.js.typeOf(innerHTMLString) === window.njt.types.BIGINT))
 			{
 				element.innerHTML = innerHTMLString;
 			}
@@ -57,16 +57,13 @@ window.njt.element = new (function()
 		return element;
 	}
 
-	this.wrapElement = function ( elementDefinition )
+	this.wrapElement = function ( wrapperDefinition, elementObject)
 	{
-		if (window.njt.js.typeOf(elementDefinition.w) === window.njt.types.OBJECT)
-		{
-			let wrapper = window.njt.element.createElement(elementDefinition.w.t, elementDefinition.w.i, elementDefinition.w.c, elementDefinition.w.a);
-			wrapper.appendChild(elementDefinition);
-			elementDefinition = wrapper;
-		}
 
-		return elementDefinition;
+		let wrapper = window.njt.element.buildElementTree(wrapperDefinition);
+		wrapper.appendChild(elementObject);
+
+		return wrapper;
 	}
 
 	this.buildElementTree = function ( elementDefinition )
@@ -75,7 +72,7 @@ window.njt.element = new (function()
 
 		if (window.njt.js.typeOf(elementDefinition) === window.njt.types.OBJECT)
 		{
-			element = this.createElement(elementDefinition.t, elementDefinition.i, elementDefinition.c, elementDefinition.a, elementDefinition.d);
+			element = this.createElement(elementDefinition.t, elementDefinition.i, elementDefinition.c, elementDefinition.a, elementDefinition.h);
 
 			if (element !== null)
 			{
@@ -89,7 +86,10 @@ window.njt.element = new (function()
 					}
 				}
 
-				element = this.wrapElement(element);
+				if (window.njt.js.typeOf(elementDefinition.w) === window.njt.types.OBJECT)
+				{
+					element = this.wrapElement(elementDefinition.w, element);
+				}
 			}
 		}
 
@@ -796,11 +796,11 @@ window.njt.formbuilder = new (function()
 				{
 					if (input.v[i].v === selected)
 					{
-						field.appendChild(window.njt.element.createElement('option', null, null, {"value":input.v[i].v, "selected": 1}, input.v[i].d));
+						field.appendChild(window.njt.element.createElement('option', null, null, {"value":input.v[i].v, "selected": 1}, input.v[i].h));
 					}
 					else
 					{
-						field.appendChild(window.njt.element.createElement('option', null, null, {"value":input.v[i].v}, input.v[i].d));
+						field.appendChild(window.njt.element.createElement('option', null, null, {"value":input.v[i].v}, input.v[i].h));
 					}
 				}
 			}

@@ -14,6 +14,10 @@ Returns strict window.njt.types enum of var type.
 
 Iterates through map checking against the first level of object for matching variables of window.njt.types enum value.
 
+#### _getRandomInt(min, max)_
+
+Get a random integer between min and max (both inclusively).
+
 ### njt.dom
 
 DOM helpers.
@@ -96,13 +100,24 @@ Element building functions
 
 Create a DOM object of the element type typeString.
 
-#### _wrapElement(elementDefinition)_
+#### _wrapElement(wrapperDefinition, elementObject)_
 
-TODO: Decipher this galaxy brain function which is used by buildElementTree(elementDefinition).
+Create a DOM object based on wrapperDefinition and make elementObject its child element.
 
 #### _buildElementTree(elementDefinition)_
 
 Create a tree of DOM objects based on the object elementDefinition.
+
+#### _elementDefinition_
+
+The structure of an elementDefinition is:
+- t: Element type (use empty string for text only)
+- i: Element ID attribute
+- c: Element Class attribute
+- a: Map of element attributes (can put ID and Class in here too)
+- e: Child elements
+- w: Wrapper element
+- h: innerHTML string
 
 ### njt.snip
 

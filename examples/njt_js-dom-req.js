@@ -64,7 +64,7 @@ window.njt.event.queue['pageloaded'].push(function()
 	let onloadFunction = function()
 	{
 		document.outputToConsole("Loaded GET request");
-		
+
 		if (this.status === 200)
 		{
 			let valid = document.validateResponseText(this.responseText);
@@ -85,8 +85,17 @@ window.njt.event.queue['pageloaded'].push(function()
 			document.outputToConsole("HTTP status not: 200 OK");
 		}
 	}
-	
-	document.outputToConsole("Making GET request");
 
-	window.njt.req.get(path, onloadFunction);
+	if (location.protocol == 'file:')
+	{
+		document.outputToConsole("Sorry this demo does not support the FILE protocol");
+		document.outputToConsole("Please view via HTTP or HTTPS");
+	}
+	else
+	{
+		document.outputToConsole("Making GET request");
+
+		window.njt.req.get(path, onloadFunction);
+	}
+
 });

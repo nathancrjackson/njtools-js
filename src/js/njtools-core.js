@@ -83,6 +83,15 @@ window.njt = new (function(debug)
 
 			return true;
 		}
+		
+		//Get random int (min & max inclusive)
+		this.getRandomInt = function (min, max)
+		{
+			max = max + 1; //This make the below inclusive
+			min = Math.ceil(min);
+			max = Math.floor(max);
+			return Math.floor(Math.random() * (max - min) + min);
+		}
 	
 	})();
 
