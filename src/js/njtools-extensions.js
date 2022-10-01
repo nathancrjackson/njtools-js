@@ -1,13 +1,13 @@
 
-//NJTools lazy ID helpers
+//NJTools lazy Id helpers
 window.njt.id = new (function()
 {
-	this.lazyUniqueID = Date.now();
+	this.lazyUniqueId = Date.now();
 
-	this.getLazyUniqueID = function ()
+	this.getLazyUniqueId = function ()
 	{
-		result = this.lazyUniqueID;
-		this.lazyUniqueID++;
+		result = this.lazyUniqueId;
+		this.lazyUniqueId++;
 		return result;
 	}
 })();
@@ -133,13 +133,16 @@ window.njt.snip = new (function()
 	//How we add to that map
 	this.valueMapPush = function(key, value)
 	{
-		if (this.caseSensitive) { this.valueMap[key] = value; }
-			else { this.valueMap[key.toLowerCase()] = value; }
+		if (!this.caseSensitive) { key = key.toLowerCase(); }
+
+		this.valueMap[key] = value;
 	};
 
 	//How we reset the map
 	this.valueMapDelete = function(key)
 	{
+		if (!this.caseSensitive) { key = key.toLowerCase(); }
+
 		if (typeof this.valueMap[key] !== 'undefined') { delete this.valueMap[key]; }
 	};
 
@@ -168,11 +171,11 @@ window.njt.snip = new (function()
 		return result;
 	};
 
-	this.examineByID = function(snipID)
+	this.examineById = function(snipId)
 	{
 		let result = new Array();
 
-		let nodeList = window.njt.dom.getElementsByAttributeWithValue('snip-id', snipID);
+		let nodeList = window.njt.dom.getElementsByAttributeWithValue('snip-id', snipId);
 
 		if (nodeList.length === 1)
 		{
@@ -270,20 +273,20 @@ window.njt.snip = new (function()
 		return result;
 	};
 
-	this.processByID = function(snipID)
+	this.processById = function(snipId)
 	{
-		let nodeList = window.njt.dom.getElementsByAttributeWithValue('snip-id', snipID);
+		let nodeList = window.njt.dom.getElementsByAttributeWithValue('snip-id', snipId);
 
 		if (nodeList.length === 1)
 		{
 			//Check it against our map
-			if(typeof this.snipMap[snipID] === 'undefined')
+			if(typeof this.snipMap[snipId] === 'undefined')
 			{
 				//Store our original text in our snip map
-				this.snipMap[snipID] = nodeList[0].innerHTML
+				this.snipMap[snipId] = nodeList[0].innerHTML
 			}
 
-			nodeList[0].innerHTML = this.processString(this.snipMap[snipID]);
+			nodeList[0].innerHTML = this.processString(this.snipMap[snipId]);
 		}
 	}
 
@@ -295,39 +298,39 @@ window.njt.snip = new (function()
 		{
 			for (let i = 0; i < nodeList.length; i++)
 			{
-				let snipID = nodeList[i].getAttribute('snip-id');
+				let snipId = nodeList[i].getAttribute('snip-id');
 
 				//Check if attribute even set
-				if (snipID === null)
+				if (snipId === null)
 				{
-					//Maybe redo this later, for now this is how I'll do unique ID generation
-					snipID = snipGroup + window.njt.id.getLazyUniqueID();
-					nodeList[i].setAttribute("snip-id", snipID);
+					//Maybe redo this later, for now this is how I'll do unique Id generation
+					snipId = snipGroup + window.njt.id.getLazyUniqueId();
+					nodeList[i].setAttribute("snip-id", snipId);
 				}
 
 				//Check it against our map
-				if(typeof this.snipMap[snipID] === 'undefined')
+				if(typeof this.snipMap[snipId] === 'undefined')
 				{
 					//Store our original text in our snip map
-					this.snipMap[snipID] = nodeList[i].innerHTML
+					this.snipMap[snipId] = nodeList[i].innerHTML
 				}
 
-				nodeList[i].innerHTML = this.processString(this.snipMap[snipID]);
+				nodeList[i].innerHTML = this.processString(this.snipMap[snipId]);
 			}
 		}
 	}
 
-	this.resetByID = function(snipID)
+	this.resetById = function(snipId)
 	{
-		let nodeList = window.njt.dom.getElementsByAttributeWithValue('snip-id', snipID);
+		let nodeList = window.njt.dom.getElementsByAttributeWithValue('snip-id', snipId);
 
 		if (nodeList.length === 1)
 		{
 			//Check it against our map
-			if(typeof this.snipMap[snipID] !== 'undefined')
+			if(typeof this.snipMap[snipId] !== 'undefined')
 			{
 				//Restore our original text in our snip map
-				nodeList[0].innerHTML = this.snipMap[snipID];
+				nodeList[0].innerHTML = this.snipMap[snipId];
 			}
 		}
 	}
@@ -340,23 +343,23 @@ window.njt.snip = new (function()
 		{
 			for (let i = 0; i < nodeList.length; i++)
 			{
-				let snipID = nodeList[i].getAttribute('snip-id');
+				let snipId = nodeList[i].getAttribute('snip-id');
 
 				//Check if attribute even set
-				if (snipID !== null)
+				if (snipId !== null)
 				{
 					//Check attribute against our map
-					if(typeof this.snipMap[snipID] !== 'undefined')
+					if(typeof this.snipMap[snipId] !== 'undefined')
 					{
 						//Restore our original text in our snip map
-						nodeList[i].innerHTML = this.snipMap[snipID];
+						nodeList[i].innerHTML = this.snipMap[snipId];
 					}
 				}
 			}
 		}
 	}
 
-	//Initialise snip group by class and makeup an ID
+	//Initialise snip group by class and makeup an Id
 	this.initByClass = function(className)
 	{
 		let count = 0;
@@ -368,9 +371,9 @@ window.njt.snip = new (function()
 			{
 				nodeList[i].setAttribute("snip-group", className);
 
-				//Maybe redo this later, for now this is how I'll do unique ID generation
-				snipID = className + window.njt.id.getLazyUniqueID();
-				nodeList[i].setAttribute("snip-id", snipID);
+				//Maybe redo this later, for now this is how I'll do unique Id generation
+				snipId = className + window.njt.id.getLazyUniqueId();
+				nodeList[i].setAttribute("snip-id", snipId);
 
 				count++;
 			}
@@ -380,8 +383,8 @@ window.njt.snip = new (function()
 	};
 
 	//Initialise snip group and id by class
-	//Format class as "snipGroup-snapID" with the snip group being the class prefix
-	this.initByClassIDPair = function(classPrefix)
+	//Format class as "snipGroup-snapId" with the snip group being the class prefix
+	this.initByClassIdPair = function(classPrefix)
 	{
 		let count = 0;
 		let nodeList = window.njt.dom.getElementsWhereClassBegins(classPrefix+'-');
@@ -420,30 +423,30 @@ window.njt.modal = new (function()
 
 		//Create the modal "background"
 		let background = document.createElement('div');
-		background.setAttribute('id', this.modalBackgroundID);
+		background.setAttribute('id', this.modalBackgroundId);
 		background.setAttribute('modal-element', 'background');
 		background.className = this.modalBackgroundClass;
 
 		//Create the frame for the model
 		let frame = document.createElement('div');
-		frame.setAttribute("id", this.modalFrameID);
+		frame.setAttribute("id", this.modalFrameId);
 		frame.className = this.modalFrameClass;
 
 
 		//Create the wrapper for the close span
 		let spanwrap = document.createElement('div');
-		spanwrap.setAttribute("id", this.modalCloseWrapperID);
+		spanwrap.setAttribute("id", this.modalCloseWrapperId);
 
 		//Create a span to close
 		let span = document.createElement('span');
 		span.innerHTML = '&times;';
 		span.className = this.modalCloseClass;
-		span.setAttribute('id', this.modalCloseID);
+		span.setAttribute('id', this.modalCloseId);
 		span.setAttribute('modal-element', 'close-button');
 
 		//Create what holds the content
 		let content = document.createElement('div');
-		content.setAttribute('id', this.modalContentID);
+		content.setAttribute('id', this.modalContentId);
 		content.className = this.modalContentClass;
 
 		//Link it all up
@@ -497,68 +500,68 @@ window.njt.modal = new (function()
 	this.loadModals = function()
 	{
 		let modalArray = document.querySelectorAll('[modal-wrapper]');
-		let currentID = null;
+		let currentId = null;
 		let currentOpen = null;
 		let currentClose = null;
 		let numModals = modalArray.length;
 		for (let i = 0; i < modalArray.length; i++)
 		{
-			currentID = modalArray[i].getAttribute("modal-wrapper");
+			currentId = modalArray[i].getAttribute("modal-wrapper");
 			currentOpen = modalArray[i].getAttribute("modal-open");
 			currentClose = modalArray[i].getAttribute("modal-close");
 			currentChildren = modalArray[i].children;
 
-			this.contentArray[currentID] = {};
-			this.contentArray[currentID].modal = document.createDocumentFragment();
+			this.contentArray[currentId] = {};
+			this.contentArray[currentId].modal = document.createDocumentFragment();
 			while (currentChildren.length > 0)
 			{
-				this.contentArray[currentID].modal.appendChild(currentChildren[0]);
+				this.contentArray[currentId].modal.appendChild(currentChildren[0]);
 			}
 
 			if (typeof currentOpen == "string")
-				{ this.contentArray[currentID].open = currentOpen; }
+				{ this.contentArray[currentId].open = currentOpen; }
 			else
-				{ this.contentArray[currentID].open = null; }
+				{ this.contentArray[currentId].open = null; }
 
 			if (typeof currentClose == "string")
-				{ this.contentArray[currentID].close = currentClose; }
+				{ this.contentArray[currentId].close = currentClose; }
 			else
-				{ this.contentArray[currentID].close = null; }
+				{ this.contentArray[currentId].close = null; }
 			
 			modalArray[i].parentNode.removeChild(modalArray[i]);
 		}
 	}
 
-	this.open = function(contentID, event)
+	this.open = function(contentId, event)
 	{
 		window.njt.log('Trying To Open Modal');
 
-		if (this.contentArray[contentID].open != null)
+		if (this.contentArray[contentId].open != null)
 		{
 			window.njt.log('Running Custom Open Modal Function');
-			window.njt.modal.openFunctions[this.contentArray[contentID].open](contentID, event);
+			window.njt.modal.openFunctions[this.contentArray[contentId].open](contentId, event);
 		}
 		else
 		{
-			this.openNow(contentID);
+			this.openNow(contentId);
 		}
 	}
 
-	this.openNow = function(contentID)
+	this.openNow = function(contentId)
 	{
 		window.njt.log('Modal Open Started');
 
 		if
 		(
-			this.currentContentID === null &&
-			typeof contentID === "string" &&
-			typeof this.contentArray[contentID] !== "undefined"
+			this.currentContentId === null &&
+			typeof contentId === "string" &&
+			typeof this.contentArray[contentId] !== "undefined"
 		)
 		{
-			//IE Didn't like this: window.njt.modal.modalShell.getElementById(this.modalContentID).appendChild(this.contentArray[contentID]);
-			window.njt.modal.modalShell.querySelector('#'+this.modalContentID).appendChild(this.contentArray[contentID].modal);
+			//IE Didn't like this: window.njt.modal.modalShell.getElementById(this.modalContentId).appendChild(this.contentArray[contentId]);
+			window.njt.modal.modalShell.querySelector('#'+this.modalContentId).appendChild(this.contentArray[contentId].modal);
 			document.body.appendChild(this.modalShell);
-			this.currentContentID = contentID;
+			this.currentContentId = contentId;
 		}
 		window.njt.log('Modal Open Ended');
 	}
@@ -567,10 +570,10 @@ window.njt.modal = new (function()
 	{
 		window.njt.log('Trying To Close Modal');
 
-		if (this.contentArray[this.currentContentID].close != null)
+		if (this.contentArray[this.currentContentId].close != null)
 		{
 			window.njt.log('Running Custom Close Modal Function');
-			window.njt.modal.closeFunctions[this.contentArray[this.currentContentID].close](event);
+			window.njt.modal.closeFunctions[this.contentArray[this.currentContentId].close](event);
 		}
 		else
 		{
@@ -582,33 +585,33 @@ window.njt.modal = new (function()
 	this.closeNow = function()
 	{
 		window.njt.log('Modal Close Started');
-		if (this.currentContentID !== null)
+		if (this.currentContentId !== null)
 		{
 			//Load the modal content back into its array
-			let content = document.getElementById(this.modalContentID);
+			let content = document.getElementById(this.modalContentId);
 			while (content.childNodes.length > 0)
 			{
-				this.contentArray[this.currentContentID].modal.appendChild(content.childNodes[0]);
+				this.contentArray[this.currentContentId].modal.appendChild(content.childNodes[0]);
 			}
 			//Grab the background and put it back into the modal shell fragment
-			this.modalShell.appendChild(document.getElementById(this.modalBackgroundID));
+			this.modalShell.appendChild(document.getElementById(this.modalBackgroundId));
 
-			this.currentContentID = null;
+			this.currentContentId = null;
 		}
 		window.njt.log('Modal Close Ended');
 	}
 
 	this.modalShell = null;
-	this.currentContentID = null;
+	this.currentContentId = null;
 	this.contentArray = [];
-	this.modalBackgroundID = 'modal-background';
+	this.modalBackgroundId = 'modal-background';
 	this.modalBackgroundClass = 'modal-background';
-	this.modalFrameID = 'modal-frame';
+	this.modalFrameId = 'modal-frame';
 	this.modalFrameClass = 'modal-frame';
-	this.modalCloseWrapperID = 'modal-close-wrapper';
-	this.modalCloseID = 'modal-close-button';
+	this.modalCloseWrapperId = 'modal-close-wrapper';
+	this.modalCloseId = 'modal-close-button';
 	this.modalCloseClass = 'modal-close';
-	this.modalContentID = 'modal-content';
+	this.modalContentId = 'modal-content';
 	this.modalContentClass = 'modal-content';
 
 	this.lastClick = null;
@@ -685,7 +688,7 @@ window.njt.formbuilder = new (function()
 
 	/*
 
-	input.i = input ID and name
+	input.i = input Id and name
 	input.l = input label
 	input.p = input placeholder
 	input.c = wrapper div class
