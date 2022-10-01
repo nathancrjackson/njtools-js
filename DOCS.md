@@ -22,27 +22,31 @@ Get a random integer between min and max (both inclusively).
 
 DOM helpers.
 
-#### _findByAttribute(string)_
+#### _getElementById(string)_
 
-Find all DOM objects that have an attribute matching string
+Find a DOM object that has an Id matching string. Essentially an alias of document.getElementById that is here to complete the set.
 
-#### _findByAttributeWithValue(attributeString, valueString)_
+#### _getElementsByAttribute(string)_
+
+Find all DOM objects that have an attribute matching string.
+
+#### _getElementsByAttributeWithValue(attributeString, valueString)_
 
 Find all DOM objects that have the attribute matching attributeString with the value matching valueString.
 
-#### _findByClass(string)_
+#### _getElementsByClass(string)_
 
 Find all DOM objects that have the class matching string.
 
-#### _findByClassContains(string)_
+#### _getElementsWhereClassContains(string)_
 
 Find all DOM objects that have a class containing string.
 
-#### _findByClassBegins(string)_
+#### _getElementsWhereClassBegins(string)_
 
 Find all DOM objects that have a class beginning with string.
 
-#### _findByClassEnds(string)_
+#### _getElementsWhereClassEnds(string)_
 
 Find all DOM objects that have a class ending with string.
 
@@ -73,6 +77,10 @@ Add function to function map which can be referenced by name.
 #### _createQueue(queueNameString, eventObject, eventNameString)_
 
 Create a listener queue called queueNameString which waits for eventObject to emit an event named eventNameString.
+
+#### _queueWrapper(object, eventListenerName)_
+
+Used by createQueue to wrap events before placing them in the appropriate queue\[nameString\].
 
 #### _queue\[nameString\].push(function)_
 
