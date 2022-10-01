@@ -18,6 +18,8 @@ Iterates through map checking against the first level of object for matching var
 
 Get a random integer between min and max (both inclusively).
 
+---
+
 ### njt.dom
 
 DOM helpers.
@@ -50,6 +52,8 @@ Find all DOM objects that have a class beginning with string.
 
 Find all DOM objects that have a class ending with string.
 
+---
+
 ### njt.req
 
 AJAX helpers.
@@ -62,9 +66,11 @@ Make a simple GET request to URL pathString and call function onloadFunction whe
 
 Make a simple POST request to URL pathString sending postData and call function onloadFunction when done which will have the reply responseText passed into it.
 
+---
+
 ### njt.event
 
-Event helpers
+Event helpers.
 
 #### _eventHandler(event)_
 
@@ -90,19 +96,23 @@ Adds function to listener queue called nameString.
 
 Triggers a custom event on eventObject which has the name eventListenerName and adds eventDetails to the emitted Event object's detail property.
 
+---
+
 ## Extension classes
 
 ### njt.id
 
-Very basic IDs
+Very basic IDs.
 
 #### _getLazyUniqueID()_
 
 Returns simple ID based on date. This is used by _njt.snip_.
 
+---
+
 ### njt.element
 
-Element building functions
+Element building functions.
 
 #### _createElement(typeString, idString, classString, attrMap, innerHTMLString)_
 
@@ -127,65 +137,73 @@ The structure of an elementDefinition is:
 - w: Wrapper element
 - h: innerHTML string
 
+---
+
 ### njt.snip
 
-Process strings with variables that use {:this:} notation
+Process strings with variables that use {:this:} notation.
 
 #### _setCaseSensitive(isSensitive)_
 
-Sets whether variables are case-sensitive or not
+Sets whether variables are case-sensitive or not.
 
 #### _valueMapPush(key, value)_
 
-Loads a value for a variable into the value map
+Loads a value for a variable into the value map.
 
 #### _valueMapDelete(key)_
 
-Deletes a variable from the value map
+Deletes a variable from the value map.
 
 #### _valueMapClear()_
 
-Clears the value map
+Clears the value map.
 
 #### _examineString(snipString)_
 
-Examines the string snipString and returns an array of all variables found
+Examines the string snipString and returns an array of all variables found.
 
 #### _examineByID(snipID)_
 
-Examines the innerHTML of an element where the attribute snip-id is set to snipID and returns an array of all variables found
+Examines the innerHTML of an element where the attribute snip-id is set to snipID and returns an array of all variables found.
 
 #### _examineByGroup(snipGroup)_
 
-Examines the innerHTML of elements where the attribute snip-group is set to snipGroup and returns an array of all variables found
+Examines the innerHTML of elements where the attribute snip-group is set to snipGroup and returns an array of all variables found.
 
 #### _processString(snipString)_
 
-Processes the contents of snipString and replaces variables with their associated value from the value map
+Processes the contents of snipString and replaces variables with their associated value from the value map.
 
 #### _processByID(snipID)_
 
-Processes the contents of an element where the attribute snip-id is set to snipID and replaces variables with their associated value from the value map
+Processes the contents of an element where the attribute snip-id is set to snipID and replaces variables with their associated value from the value map.
 
 #### _processByGroup(snipGroup)_
 
-Processes the contents of elements where the attribute snip-group is set to snipGroup and replaces variables with their associated value from the value map
+Processes the contents of elements where the attribute snip-group is set to snipGroup and replaces variables with their associated value from the value map.
 
 #### _resetByID(snipID)_
 
-Resets the contents of an element where the attribute snip-id is set to snipID back to its original content
+Resets the contents of an element where the attribute snip-id is set to snipID back to its original content.
 
 #### _resetByGroup(snipGroup)_
 
-Resets the contents of elements where the attribute snip-group is set to snipGroup back to its original content
+Resets the contents of elements where the attribute snip-group is set to snipGroup back to its original content.
 
 #### _initByClass(className)_
 
+Finds all elements with the class of classname, set the snip-group attribute to be className and makes up a snip-id using _njt.id.getLazyUniqueId()_.
+
 #### _initByClassIDPair(classPrefix)_
+
+Finds all elements with a class matching classPrefix-\*, sets the snip-group attribute to be classPrefix and sets the snip-id be whatever the * value is.
+
+---
 
 ### njt.modal
 
-Handles the initialisation, opening and closing of models
+Handles the initialisation, opening and closing of models.
 
 #### _initModal()_
 
@@ -211,14 +229,16 @@ Closes the modal named contentID. If there is a custom close function defined fo
 
 Directly closes the current modal.
 
+---
+
 ### njt.formbuilder
 
-Generate HTML forms using JSON definitions 
+Generate HTML forms using JSON definitions .
 
 #### _generate(input)_
 
-Generates form defined in input
+Generates form defined in input.
 
 #### _typeBuilders\[type\](input)_
 
-Generates a block named type defined in input
+Generates a block named type defined in input.
