@@ -20,7 +20,7 @@
 			<h1>NJTools.JS Examples</h1>
 		</div>
 	</div>
-	<!div class="body-blck">
+	<div class="body-blck">
 		<div class="body-cont">
 			<nav>
 				<ul class="rnav">
@@ -40,7 +40,43 @@
 				<div class="gd-s12">
 				<h2>NJT.Snip</h2>
 				<h3>Description</h3>
-				<p>TODO</p>
+				<p>The snip module is a tool for creating simple dynamic websites.</p>
+				<h3>Clock</h3>
+				<p class="clocksnip-clocktarget">The time is: {:time:}</p>
+				<h3>Linux command examples</h3>
+				<p>How to recursively set permissions on a file or folder:</p>
+				<pre snip-group="linuxcommands" snip-id="chmodcommand">chmod -R {:mode:} {:path:}</pre>
+				<p>How to recursively set ownership on a file or folder:</p>
+				<pre snip-group="linuxcommands" snip-id="chowncommand">chmod -R {:username:}:{:usergroup:} {:path:}</pre>
+				<p>You can fill in the variables using the following form:</p>
+				<div class="gd-cont">
+					<div class="gd-m6">
+						<label for="path-input">File or folder path
+							<input type="text" id="path-input" placeholder="/opt/custom-app">
+						</label>
+					</div>
+					<div class="gd-m6">
+						<label for="path-input">File or folder mode
+							<input type="text" id="mode-input" placeholder="755">
+						</label>
+					</div>
+					<div class="gd-m6">
+						<label for="username-input">Username
+							<input type="text" id="username-input" placeholder="service-account">
+						</label>
+					</div>
+					<div class="gd-m6">
+						<label for="usergroup-input">User group
+							<input type="text" id="usergroup-input" placeholder="service-group">
+						</label>
+					</div>
+					<div class="gd-s12">
+						<button onclick="window.njt.event.eventHandler(event)" njteventclick="updatechmod">Update chmod</button>
+						<button onclick="window.njt.event.eventHandler(event)" njteventclick="updatechown">Update chown</button>
+						<button onclick="window.njt.event.eventHandler(event)" njteventclick="updateboth">Update both</button>
+						<button onclick="window.njt.event.eventHandler(event)" njteventclick="resetboth">Reset both</button>
+					</div>
+				</div>
 				<h3>Console</h3>
 				<pre id="jsconsole">Javascripts messages will go here</pre>
 				</div>
