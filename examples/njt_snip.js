@@ -31,6 +31,9 @@ document.readPath = function()
 	//Read path input
 	let path = window.njt.dom.getElementById('path-input').value;
 
+	//Use place holders if required
+	if (path == "") {path = window.njt.dom.getElementById('path-input').placeholder;}
+
 	//If it is empty ensure not in value map
 	if (path == "")
 		{ window.njt.snip.valueMapDelete('Path'); }
@@ -43,6 +46,9 @@ document.readMode = function()
 {
 	//Read mode input
 	let mode = window.njt.dom.getElementById('mode-input').value;
+
+	//Use place holders if required
+	if (mode == "") {mode = window.njt.dom.getElementById('mode-input').placeholder;}
 
 	//If it is empty ensure not in value map
 	if (mode == "")
@@ -57,6 +63,10 @@ document.readUserAndGroup = function()
 	//Read username and usergroup inputs
 	let username = window.njt.dom.getElementById('username-input').value;
 	let usergroup = window.njt.dom.getElementById('usergroup-input').value;
+	
+	//Use place holders if required
+	if (username == "") {username = window.njt.dom.getElementById('username-input').placeholder;}
+	if (usergroup == "") {usergroup = window.njt.dom.getElementById('usergroup-input').placeholder;}
 
 	//If username is empty ensure not in value map
 	if (username == "")

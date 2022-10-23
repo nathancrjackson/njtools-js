@@ -11,8 +11,38 @@
 	<script src="common.js"></script>
 	<script defer src="../src/js/njtools-extensions.js"></script>
 	<script defer src="njt_formbuilder.js"></script>
-	<script>
-	</script>
+	<style>
+#notificationheading
+{
+	margin: 0px;
+	color: #111111;
+}
+
+#notificationtext
+{
+	white-space: pre-wrap;
+	color: #111111;
+}
+
+.infonotification
+{
+	background: #d9f5fd;
+	border: 2px solid #6dcff6;
+}
+
+.alertnotification
+{
+	background: #fffee8;
+	border: 2px solid #fff799;
+}
+
+.errornotification
+{
+	background: #fde9e5;
+	border: 2px solid #f69679;
+}
+
+	</style>
 </head>
 <body>
 	<div class="body-blck">
@@ -20,7 +50,7 @@
 			<h1>NJTools.JS Examples</h1>
 		</div>
 	</div>
-	<!div class="body-blck">
+	<div class="body-blck">
 		<div class="body-cont">
 			<nav>
 				<ul class="rnav">
@@ -40,7 +70,15 @@
 				<div class="gd-s12">
 				<h2>NJT.FormBuilder</h2>
 				<h3>Description</h3>
-				<p>TODO</p>
+				<p>This module extends the elements module to make generating forms via Javascript easier.</p>
+				<h3>Notification</h3>
+				<div id="notificationdiv" class="infonotification">
+				<h4 id="notificationheading"></h4>
+				<p id="notificationtext"></p>
+				</div>
+				<h3>Form</h3>
+				<div id="formdiv">
+				</div>
 				<h3>Console</h3>
 				<pre id="jsconsole">Javascripts messages will go here</pre>
 				</div>
