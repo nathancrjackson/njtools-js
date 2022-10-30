@@ -7,9 +7,8 @@ Occasionally I need to do some things in JavaScript and this is the neatest way 
 ## Resources
 - [Basic documentation](DOCS.md)
 - [Code examples](https://njit.io/projects/njtools-js/examples/)
-- [Demo site](https://njit.io/projects/njtools-js/demo/)
+- [Demo site](https://qmcomp.njit.io/)
 
 ## Todo
-- Create new demo site
 - Minify code
 - Publish on my CDN
