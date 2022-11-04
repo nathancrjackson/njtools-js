@@ -104,7 +104,7 @@ Triggers a custom event on eventObject which has the name eventListenerName and 
 
 Very basic IDs.
 
-#### _getLazyUniqueID()_
+#### _getLazyUniqueId()_
 
 Returns simple ID based on date. This is used by _njt.snip_.
 
@@ -163,7 +163,7 @@ Clears the value map.
 
 Examines the string snipString and returns an array of all variables found.
 
-#### _examineByID(snipID)_
+#### _examineById(snipId)_
 
 Examines the innerHTML of an element where the attribute snip-id is set to snipID and returns an array of all variables found.
 
@@ -175,7 +175,7 @@ Examines the innerHTML of elements where the attribute snip-group is set to snip
 
 Processes the contents of snipString and replaces variables with their associated value from the value map.
 
-#### _processByID(snipID)_
+#### _processById(snipId)_
 
 Processes the contents of an element where the attribute snip-id is set to snipID and replaces variables with their associated value from the value map.
 
@@ -183,7 +183,7 @@ Processes the contents of an element where the attribute snip-id is set to snipI
 
 Processes the contents of elements where the attribute snip-group is set to snipGroup and replaces variables with their associated value from the value map.
 
-#### _resetByID(snipID)_
+#### _resetById(snipId)_
 
 Resets the contents of an element where the attribute snip-id is set to snipID back to its original content.
 
@@ -195,7 +195,7 @@ Resets the contents of elements where the attribute snip-group is set to snipGro
 
 Finds all elements with the class of classname, set the snip-group attribute to be className and makes up a snip-id using _njt.id.getLazyUniqueId()_.
 
-#### _initByClassIDPair(classPrefix)_
+#### _initByClassIdPair(classPrefix)_
 
 Finds all elements with a class matching classPrefix-\*, sets the snip-group attribute to be classPrefix and sets the snip-id be whatever the * value is.
 

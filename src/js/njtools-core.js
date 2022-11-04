@@ -49,33 +49,33 @@ window.njt = new (function(debug)
 		{
 			let type = typeof variable;
 
-			if (type === "undefined") { return window.njt.types.UNDEFINED; }
-			else if (type === "boolean") { return window.njt.types.BOOLEAN; }
+			if (type === "undefined") { return njt.types.UNDEFINED; }
+			else if (type === "boolean") { return njt.types.BOOLEAN; }
 			else if (type === "number") {
-				if (variable === NaN) { return window.njt.types.NAN; }
-				else if (variable === Infinity) { return window.njt.types.INFINITY; }
-				else { return window.njt.types.NUMBER; }
+				if (variable === NaN) { return njt.types.NAN; }
+				else if (variable === Infinity) { return njt.types.INFINITY; }
+				else { return njt.types.NUMBER; }
 			}
-			else if (type === "bigint") { return window.njt.types.BIGINT; }
-			else if (type === "string") { return window.njt.types.STRING; }
-			else if (type === "symbol") { return window.njt.types.SYMBOL; }
-			else if (type === "function") { return window.njt.types.FUNCTION; }
+			else if (type === "bigint") { return njt.types.BIGINT; }
+			else if (type === "string") { return njt.types.STRING; }
+			else if (type === "symbol") { return njt.types.SYMBOL; }
+			else if (type === "function") { return njt.types.FUNCTION; }
 			else if (type === "object")
 			{
-				if (variable === null) { return window.njt.types.NULL; }
-				else if (Array.isArray(variable)) { return window.njt.types.ARRAY; }
-				else { return window.njt.types.OBJECT; }
+				if (variable === null) { return njt.types.NULL; }
+				else if (Array.isArray(variable)) { return njt.types.ARRAY; }
+				else { return njt.types.OBJECT; }
 			}
 
 			//Can't see how this would be output but if things change better to have it
-			return window.njt.types.UNKNOWN; 
+			return njt.types.UNKNOWN; 
 		}
 		
 		this.validate = function ( object, map )
 		{
 			for (let key in map)
 			{
-				if (window.njt.js.typeOf(object[key]) != map[key])
+				if (njt.js.typeOf(object[key]) != map[key])
 				{
 					return false;
 				}
@@ -208,7 +208,7 @@ window.njt = new (function(debug)
 			if ((typeof eventlink) !== "undefined")
 			{
 
-				let eventfunction = window.njt.event.funct[eventlink.value];
+				let eventfunction = njt.event.funct[eventlink.value];
 				if ((typeof eventfunction) === "function")
 				{
 					eventfunction(e);
@@ -218,7 +218,7 @@ window.njt = new (function(debug)
 		
 		this.addFunction = function(name, funct)
 		{
-			window.njt.event.funct[name] = funct;
+			njt.event.funct[name] = funct;
 		}
 
 		this.createQueue = function(queueName, eventObject, eventName)
@@ -235,12 +235,12 @@ window.njt = new (function(debug)
 			{
 				if (this.eventOccured)
 				{
-					window.njt.log('Event '+eventListenerName+' has passed executing immediately');
+					njt.log('Event '+eventListenerName+' has passed executing immediately');
 					inputFunction();
 				}
 				else
 				{
-					window.njt.log('Added function to '+eventListenerName+' queue');
+					njt.log('Added function to '+eventListenerName+' queue');
 					this.functionArray.push(inputFunction);
 				}
 			}

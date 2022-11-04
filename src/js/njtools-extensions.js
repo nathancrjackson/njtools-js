@@ -1,6 +1,6 @@
 
 //NJTools lazy Id helpers
-window.njt.id = new (function()
+njt.id = new (function()
 {
 	this.lazyUniqueId = Date.now();
 
@@ -13,13 +13,13 @@ window.njt.id = new (function()
 })();
 
 //NJTools element building helpers
-window.njt.element = new (function()
+njt.element = new (function()
 {
 	this.createElement = function ( typeString, idString, classString, attrMap, innerHTMLString )
 	{
 		let element = null;
 
-		if (window.njt.js.typeOf(typeString) === window.njt.types.STRING)
+		if (njt.js.typeOf(typeString) === njt.types.STRING)
 		{
 			if (typeString === "")
 			{
@@ -28,7 +28,7 @@ window.njt.element = new (function()
 
 			element = document.createElement(typeString);
 
-			if (window.njt.js.typeOf(attrMap) === window.njt.types.OBJECT)
+			if (njt.js.typeOf(attrMap) === njt.types.OBJECT)
 			{
 				let keys = Object.keys(attrMap);
 				for (let i = 0, l = keys.length; i < l; ++i)
@@ -38,17 +38,17 @@ window.njt.element = new (function()
 				}
 			}
 
-			if (window.njt.js.typeOf(idString) === window.njt.types.STRING)
+			if (njt.js.typeOf(idString) === njt.types.STRING)
 			{
 				element.setAttribute('id', idString);
 			}
 
-			if (window.njt.js.typeOf(classString) === window.njt.types.STRING)
+			if (njt.js.typeOf(classString) === njt.types.STRING)
 			{
 				element.className = classString;
 			}
 
-			if ((window.njt.js.typeOf(innerHTMLString) === window.njt.types.STRING) || (window.njt.js.typeOf(innerHTMLString) === window.njt.types.NUMBER) || (window.njt.js.typeOf(innerHTMLString) === window.njt.types.BIGINT))
+			if ((njt.js.typeOf(innerHTMLString) === njt.types.STRING) || (njt.js.typeOf(innerHTMLString) === njt.types.NUMBER) || (njt.js.typeOf(innerHTMLString) === njt.types.BIGINT))
 			{
 				element.innerHTML = innerHTMLString;
 			}
@@ -60,7 +60,7 @@ window.njt.element = new (function()
 	this.wrapElement = function ( wrapperDefinition, elementObject)
 	{
 
-		let wrapper = window.njt.element.buildElementTree(wrapperDefinition);
+		let wrapper = njt.element.buildElementTree(wrapperDefinition);
 		wrapper.appendChild(elementObject);
 
 		return wrapper;
@@ -70,13 +70,13 @@ window.njt.element = new (function()
 	{
 		let element = null;
 
-		if (window.njt.js.typeOf(elementDefinition) === window.njt.types.OBJECT)
+		if (njt.js.typeOf(elementDefinition) === njt.types.OBJECT)
 		{
 			element = this.createElement(elementDefinition.t, elementDefinition.i, elementDefinition.c, elementDefinition.a, elementDefinition.h);
 
 			if (element !== null)
 			{
-				if (window.njt.js.typeOf(elementDefinition.e) === window.njt.types.ARRAY)
+				if (njt.js.typeOf(elementDefinition.e) === njt.types.ARRAY)
 				{
 					for (let i = 0; i < elementDefinition.e.length; i++)
 					{
@@ -86,7 +86,7 @@ window.njt.element = new (function()
 					}
 				}
 
-				if (window.njt.js.typeOf(elementDefinition.w) === window.njt.types.OBJECT)
+				if (njt.js.typeOf(elementDefinition.w) === njt.types.OBJECT)
 				{
 					element = this.wrapElement(elementDefinition.w, element);
 				}
@@ -99,7 +99,7 @@ window.njt.element = new (function()
 })();
 
 //NJTools "snip" helpers
-window.njt.snip = new (function()
+njt.snip = new (function()
 {
 	//Are we case-sensitive
 	this.caseSensitive = false;
@@ -120,13 +120,13 @@ window.njt.snip = new (function()
 	{
 		if (isSensitive == true)
 		{
-			window.njt.snip.caseSensitive = true;
-			window.njt.snip.regex = new RegExp("\{:([a-zA-Z0-9=\.\-_]*):\}", 'g');
+			njt.snip.caseSensitive = true;
+			njt.snip.regex = new RegExp("\{:([a-zA-Z0-9=\.\-_]*):\}", 'g');
 		}
 		else
 		{
-			window.njt.snip.caseSensitive = false;
-			window.njt.snip.regex = new RegExp("\{:([a-zA-Z0-9=\.\-_]*):\}", 'gi');
+			njt.snip.caseSensitive = false;
+			njt.snip.regex = new RegExp("\{:([a-zA-Z0-9=\.\-_]*):\}", 'gi');
 		}
 	};
 
@@ -175,7 +175,7 @@ window.njt.snip = new (function()
 	{
 		let result = new Array();
 
-		let nodeList = window.njt.dom.getElementsByAttributeWithValue('snip-id', snipId);
+		let nodeList = njt.dom.getElementsByAttributeWithValue('snip-id', snipId);
 
 		if (nodeList.length === 1)
 		{
@@ -189,7 +189,7 @@ window.njt.snip = new (function()
 	{
 		let result = new Array();
 
-		let nodeList = window.njt.dom.getElementsByAttributeWithValue('snip-group', snipGroup);
+		let nodeList = njt.dom.getElementsByAttributeWithValue('snip-group', snipGroup);
 
 		if (nodeList.length > 0)
 		{
@@ -275,7 +275,7 @@ window.njt.snip = new (function()
 
 	this.processById = function(snipId)
 	{
-		let nodeList = window.njt.dom.getElementsByAttributeWithValue('snip-id', snipId);
+		let nodeList = njt.dom.getElementsByAttributeWithValue('snip-id', snipId);
 
 		if (nodeList.length === 1)
 		{
@@ -292,7 +292,7 @@ window.njt.snip = new (function()
 
 	this.processByGroup = function(snipGroup)
 	{
-		let nodeList = window.njt.dom.getElementsByAttributeWithValue('snip-group', snipGroup);
+		let nodeList = njt.dom.getElementsByAttributeWithValue('snip-group', snipGroup);
 
 		if (nodeList.length > 0)
 		{
@@ -304,7 +304,7 @@ window.njt.snip = new (function()
 				if (snipId === null)
 				{
 					//Maybe redo this later, for now this is how I'll do unique Id generation
-					snipId = snipGroup + window.njt.id.getLazyUniqueId();
+					snipId = snipGroup + njt.id.getLazyUniqueId();
 					nodeList[i].setAttribute("snip-id", snipId);
 				}
 
@@ -322,7 +322,7 @@ window.njt.snip = new (function()
 
 	this.resetById = function(snipId)
 	{
-		let nodeList = window.njt.dom.getElementsByAttributeWithValue('snip-id', snipId);
+		let nodeList = njt.dom.getElementsByAttributeWithValue('snip-id', snipId);
 
 		if (nodeList.length === 1)
 		{
@@ -337,7 +337,7 @@ window.njt.snip = new (function()
 
 	this.resetByGroup = function(snipGroup)
 	{
-		let nodeList = window.njt.dom.getElementsByAttributeWithValue('snip-group', snipGroup);
+		let nodeList = njt.dom.getElementsByAttributeWithValue('snip-group', snipGroup);
 
 		if (nodeList.length > 0)
 		{
@@ -363,7 +363,7 @@ window.njt.snip = new (function()
 	this.initByClass = function(className)
 	{
 		let count = 0;
-		let nodeList = window.njt.dom.getElementsByClass(className);
+		let nodeList = njt.dom.getElementsByClass(className);
 
 		for (let i = 0; i < nodeList.length; i++)
 		{
@@ -372,7 +372,7 @@ window.njt.snip = new (function()
 				nodeList[i].setAttribute("snip-group", className);
 
 				//Maybe redo this later, for now this is how I'll do unique Id generation
-				snipId = className + window.njt.id.getLazyUniqueId();
+				snipId = className + njt.id.getLazyUniqueId();
 				nodeList[i].setAttribute("snip-id", snipId);
 
 				count++;
@@ -387,7 +387,7 @@ window.njt.snip = new (function()
 	this.initByClassIdPair = function(classPrefix)
 	{
 		let count = 0;
-		let nodeList = window.njt.dom.getElementsWhereClassBegins(classPrefix+'-');
+		let nodeList = njt.dom.getElementsWhereClassBegins(classPrefix+'-');
 		let minLength = classPrefix.length + 2;
 
 		for (let i = 0; i < nodeList.length; i++)
@@ -415,7 +415,7 @@ window.njt.snip = new (function()
 })();
 
 //NJTools Modal
-window.njt.modal = new (function()
+njt.modal = new (function()
 {
 	this.initModal = function()
 	{
@@ -467,19 +467,19 @@ window.njt.modal = new (function()
 				//Might not work with Right to Left text
 				if (event.offsetX < event.target.clientWidth) // || event.offsetY > event.target.clientHeight) 
 				{
-					window.njt.modal.lastClick = modalElement;
+					njt.modal.lastClick = modalElement;
 				}
 			}
-			else { window.njt.modal.lastClick = null; }
+			else { njt.modal.lastClick = null; }
 		});
 
 		document.addEventListener('mouseup', function(event)
 		{
-			if (window.njt.modal.lastClick !== null)
+			if (njt.modal.lastClick !== null)
 			{
 				let modalElement = event.target.getAttribute('modal-element');
 
-				if (modalElement === window.njt.modal.lastClick)
+				if (modalElement === njt.modal.lastClick)
 				{
 					if (modalElement === 'background' || modalElement === 'close-button')
 					{
@@ -487,12 +487,12 @@ window.njt.modal = new (function()
 						//Might not work with Right to Left text
 						if (event.offsetX < event.target.clientWidth) 
 						{
-							window.njt.modal.close(event);
+							njt.modal.close(event);
 						}
 					}
 				}
 
-				window.njt.modal.lastClick = null;
+				njt.modal.lastClick = null;
 			}
 		});
 	}
@@ -534,12 +534,12 @@ window.njt.modal = new (function()
 
 	this.open = function(contentId, event)
 	{
-		window.njt.log('Trying To Open Modal');
+		njt.log('Trying To Open Modal');
 
 		if (this.contentArray[contentId].open != null)
 		{
-			window.njt.log('Running Custom Open Modal Function');
-			window.njt.modal.openFunctions[this.contentArray[contentId].open](contentId, event);
+			njt.log('Running Custom Open Modal Function');
+			njt.modal.openFunctions[this.contentArray[contentId].open](contentId, event);
 		}
 		else
 		{
@@ -549,7 +549,7 @@ window.njt.modal = new (function()
 
 	this.openNow = function(contentId)
 	{
-		window.njt.log('Modal Open Started');
+		njt.log('Modal Open Started');
 
 		if
 		(
@@ -558,22 +558,22 @@ window.njt.modal = new (function()
 			typeof this.contentArray[contentId] !== "undefined"
 		)
 		{
-			//IE Didn't like this: window.njt.modal.modalShell.getElementById(this.modalContentId).appendChild(this.contentArray[contentId]);
-			window.njt.modal.modalShell.querySelector('#'+this.modalContentId).appendChild(this.contentArray[contentId].modal);
+			//IE Didn't like this: njt.modal.modalShell.getElementById(this.modalContentId).appendChild(this.contentArray[contentId]);
+			njt.modal.modalShell.querySelector('#'+this.modalContentId).appendChild(this.contentArray[contentId].modal);
 			document.body.appendChild(this.modalShell);
 			this.currentContentId = contentId;
 		}
-		window.njt.log('Modal Open Ended');
+		njt.log('Modal Open Ended');
 	}
 
 	this.close = function(event)
 	{
-		window.njt.log('Trying To Close Modal');
+		njt.log('Trying To Close Modal');
 
 		if (this.contentArray[this.currentContentId].close != null)
 		{
-			window.njt.log('Running Custom Close Modal Function');
-			window.njt.modal.closeFunctions[this.contentArray[this.currentContentId].close](event);
+			njt.log('Running Custom Close Modal Function');
+			njt.modal.closeFunctions[this.contentArray[this.currentContentId].close](event);
 		}
 		else
 		{
@@ -584,7 +584,7 @@ window.njt.modal = new (function()
 
 	this.closeNow = function()
 	{
-		window.njt.log('Modal Close Started');
+		njt.log('Modal Close Started');
 		if (this.currentContentId !== null)
 		{
 			//Load the modal content back into its array
@@ -598,7 +598,7 @@ window.njt.modal = new (function()
 
 			this.currentContentId = null;
 		}
-		window.njt.log('Modal Close Ended');
+		njt.log('Modal Close Ended');
 	}
 
 	this.modalShell = null;
@@ -619,33 +619,33 @@ window.njt.modal = new (function()
 	this.openFunctions = {};
 	this.closeFunctions = {};
 
-	window.njt.event.queue['htmlloaded'].push(function()
+	njt.event.queue['htmlloaded'].push(function()
 	{
-		window.njt.log('Starting to initialise Modals');
-		window.njt.modal.initModal();
-		window.njt.modal.loadModals();
-		window.njt.log('Finished initialising Modals');
+		njt.log('Starting to initialise Modals');
+		njt.modal.initModal();
+		njt.modal.loadModals();
+		njt.log('Finished initialising Modals');
 	});
 
 })();
 
 //NJTools Form Builder
-window.njt.formbuilder = new (function()
+njt.formbuilder = new (function()
 {
 	this.generate = function ( input )
 	{
 		let form = null;
 
-		if (window.njt.js.typeOf(input) === window.njt.types.STRING)
+		if (njt.js.typeOf(input) === njt.types.STRING)
 		{
 			input = JSON.parse( input );
 		}
 
 		if (input.t === "njt/form")
 		{
-			form = window.njt.element.createElement('form', input.i, input.c, input.a);
+			form = njt.element.createElement('form', input.i, input.c, input.a);
 
-			if (window.njt.js.typeOf(input.e) === window.njt.types.ARRAY)
+			if (njt.js.typeOf(input.e) === njt.types.ARRAY)
 			{
 				for (let i = 0; i < input.e.length; i++)
 				{
@@ -657,7 +657,7 @@ window.njt.formbuilder = new (function()
 					{
 						if (typePath[0] === 'njt' && typePath[1] === 'form')
 						{
-							if (window.njt.js.typeOf(this.typeBuilders[typePath[2]]) === window.njt.types.FUNCTION)
+							if (njt.js.typeOf(this.typeBuilders[typePath[2]]) === njt.types.FUNCTION)
 							{
 								element = this.typeBuilders[typePath[2]](input.e[i]);
 							}
@@ -665,16 +665,16 @@ window.njt.formbuilder = new (function()
 					}
 					else if (typePath.length === 1)
 					{
-						element = window.njt.element.buildElementTree(input.e[i]);
+						element = njt.element.buildElementTree(input.e[i]);
 					}
 
 					if (element !== null) { form.appendChild(element); }
 				}
 			}
 
-			if (window.njt.js.typeOf(input.w) === window.njt.types.OBJECT)
+			if (njt.js.typeOf(input.w) === njt.types.OBJECT)
 			{
-				let wrapper = window.njt.element.createElement(input.w.t, input.w.i, input.w.c, input.w.a);
+				let wrapper = njt.element.createElement(input.w.t, input.w.i, input.w.c, input.w.a);
 				wrapper.appendChild(form);
 				form = wrapper;
 			}
@@ -701,7 +701,7 @@ window.njt.formbuilder = new (function()
 	{
 		let result = null;
 
-		if (window.njt.js.typeOf(input.i) === window.njt.types.STRING)
+		if (njt.js.typeOf(input.i) === njt.types.STRING)
 		{
 			let label = input.l;
 			let baseId = input.i;
@@ -711,18 +711,18 @@ window.njt.formbuilder = new (function()
 				'name' : baseId
 			};
 
-			if (window.njt.js.typeOf(input.p) === window.njt.types.STRING)
+			if (njt.js.typeOf(input.p) === njt.types.STRING)
 			{
 				fieldAttr['placeholder'] = input.p;
 			}
 
-			result = window.njt.element.createElement('div', baseId+'-wrapper', input.c);
+			result = njt.element.createElement('div', baseId+'-wrapper', input.c);
 
-			let field = window.njt.element.createElement('input', baseId+'-input', null, fieldAttr);
+			let field = njt.element.createElement('input', baseId+'-input', null, fieldAttr);
 
-			if (window.njt.js.typeOf(input.l) === window.njt.types.STRING)
+			if (njt.js.typeOf(input.l) === njt.types.STRING)
 			{
-				let label = window.njt.element.createElement('label', baseId+'-label', null, {"for":baseId+'-input'}, input.l + field.outerHTML);
+				let label = njt.element.createElement('label', baseId+'-label', null, {"for":baseId+'-input'}, input.l + field.outerHTML);
 				result.appendChild(label);
 			}
 			else
@@ -738,7 +738,7 @@ window.njt.formbuilder = new (function()
 	{
 		let result = null;
 
-		if (window.njt.js.typeOf(input.i) === window.njt.types.STRING)
+		if (njt.js.typeOf(input.i) === njt.types.STRING)
 		{
 			let label = input.l;
 			let baseId = input.i;
@@ -747,18 +747,18 @@ window.njt.formbuilder = new (function()
 				'name' : baseId
 			};
 
-			if (window.njt.js.typeOf(input.p) === window.njt.types.STRING)
+			if (njt.js.typeOf(input.p) === njt.types.STRING)
 			{
 				fieldAttr['placeholder'] = input.p;
 			}
 
-			result = window.njt.element.createElement('div', baseId+'-wrapper', input.c);
+			result = njt.element.createElement('div', baseId+'-wrapper', input.c);
 
-			let field = window.njt.element.createElement('textarea', baseId+'-input', null, fieldAttr);
+			let field = njt.element.createElement('textarea', baseId+'-input', null, fieldAttr);
 
-			if (window.njt.js.typeOf(input.l) === window.njt.types.STRING)
+			if (njt.js.typeOf(input.l) === njt.types.STRING)
 			{
-				let label = window.njt.element.createElement('label', baseId+'-label', null, {"for":baseId+'-input'}, input.l + field.outerHTML);
+				let label = njt.element.createElement('label', baseId+'-label', null, {"for":baseId+'-input'}, input.l + field.outerHTML);
 				result.appendChild(label);
 			}
 			else
@@ -774,7 +774,7 @@ window.njt.formbuilder = new (function()
 	{
 		let result = null;
 
-		if (window.njt.js.typeOf(input.i) === window.njt.types.STRING)
+		if (njt.js.typeOf(input.i) === njt.types.STRING)
 		{
 			let label = input.l;
 			let baseId = input.i;
@@ -784,33 +784,33 @@ window.njt.formbuilder = new (function()
 			};
 
 			let selected = null;
-			if (window.njt.js.typeOf(input.s) === window.njt.types.STRING)
+			if (njt.js.typeOf(input.s) === njt.types.STRING)
 			{
 				selected = input.s;
 			}
 
-			result = window.njt.element.createElement('div', baseId+'-wrapper', input.c);
+			result = njt.element.createElement('div', baseId+'-wrapper', input.c);
 
-			let field = window.njt.element.createElement('select', baseId+'-input', null, fieldAttr);
+			let field = njt.element.createElement('select', baseId+'-input', null, fieldAttr);
 
-			if (window.njt.js.typeOf(input.v) === window.njt.types.ARRAY)
+			if (njt.js.typeOf(input.v) === njt.types.ARRAY)
 			{
 				for (let i = 0; i < input.v.length; i++)
 				{
 					if (input.v[i].v === selected)
 					{
-						field.appendChild(window.njt.element.createElement('option', null, null, {"value":input.v[i].v, "selected": 1}, input.v[i].h));
+						field.appendChild(njt.element.createElement('option', null, null, {"value":input.v[i].v, "selected": 1}, input.v[i].h));
 					}
 					else
 					{
-						field.appendChild(window.njt.element.createElement('option', null, null, {"value":input.v[i].v}, input.v[i].h));
+						field.appendChild(njt.element.createElement('option', null, null, {"value":input.v[i].v}, input.v[i].h));
 					}
 				}
 			}
 
-			if (window.njt.js.typeOf(input.l) === window.njt.types.STRING)
+			if (njt.js.typeOf(input.l) === njt.types.STRING)
 			{
-				let label = window.njt.element.createElement('label', baseId+'-label', null, {"for":baseId+'-input'}, input.l + field.outerHTML);
+				let label = njt.element.createElement('label', baseId+'-label', null, {"for":baseId+'-input'}, input.l + field.outerHTML);
 				result.appendChild(label);
 			}
 			else
