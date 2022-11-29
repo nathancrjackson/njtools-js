@@ -11,19 +11,23 @@ document.generateForm = function()
 		{"v":"opt3", "h":"Option 3"}
 	But you may not know your options in advance and wanna generate them in JS so you can do this
 	*/
-	let dropdownValues = [];
+	let selectValues = [];
 	for (let i = 0; i < notificationTypes.length; i++)
 	{
-		dropdownValues.push({v: notificationTypes[i].toLowerCase() + 'notification', h: notificationTypes[i]});
+		selectValues.push({v: notificationTypes[i].toLowerCase() + 'notification', h: notificationTypes[i]});
 	}
 
 	//Function to create form (note how you can use with event module to save having to attach events seperately)
 	let formStructure = {
 		"t": "njt/form", "e": [
 			{ "t": "p", "h": "Use this form to change or update the notification." },
-			{ "t":"njt/form/lineinput", "i":"notificationheading", "c":"gd-s12", "l":"Notification heading", "p":"Hello" },
-			{ "t":"njt/form/multilineinput", "i":"notificationtext", "c":"gd-s12", "l":"Notification contents", "p":"You can edit the contents of this notification using the form below." },
-			{ "t":"njt/form/dropdown", "i":"notificationdivclass", "c":"gd-s12", "l":"Some options", "s":"opt2", "v": dropdownValues },
+			{ "t":"njt/form/datalist", "i":"notificationheading", "c":"gd-s12", "l":"Notification heading", "p":"Hello", "v": [
+				{"v":"Hello", "h":"Hello"},
+				{"v":"Bonjour", "h":"Bonjour"},
+				{"v":"Sup peeps", "h":"Sup peeps"}
+				] },
+			{ "t":"njt/form/textarea", "i":"notificationtext", "c":"gd-s12", "l":"Notification contents", "p":"You can edit the contents of this notification using the form below." },
+			{ "t":"njt/form/select", "i":"notificationdivclass", "c":"gd-s12", "l":"Some options", "s":"opt2", "v": selectValues },
 			{ "t":"div", "c":"gd-s12", "e": [
 				{ "t": "a", "i": "updatebutton", "c": "button", "a": {
 					"href":"#",

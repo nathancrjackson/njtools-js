@@ -697,7 +697,7 @@ njt.formbuilder = new (function()
 
 	*/
 
-	this.typeBuilders['lineinput'] = function( input )
+	this.typeBuilders['input'] = function( input )
 	{
 		let result = null;
 
@@ -707,7 +707,7 @@ njt.formbuilder = new (function()
 			let baseId = input.i;
 			let fieldAttr = {
 				'type': 'text',
-				'class': 'njt-form-lineinput',
+				'class': 'njt-form-input',
 				'name' : baseId
 			};
 
@@ -734,7 +734,7 @@ njt.formbuilder = new (function()
 		return result;
 	}
 
-	this.typeBuilders['multilineinput'] = function( input )
+	this.typeBuilders['textarea'] = function( input )
 	{
 		let result = null;
 
@@ -743,7 +743,7 @@ njt.formbuilder = new (function()
 			let label = input.l;
 			let baseId = input.i;
 			let fieldAttr = {
-				'class': 'njt-form-multilineinput',
+				'class': 'njt-form-textarea',
 				'name' : baseId
 			};
 
@@ -770,7 +770,7 @@ njt.formbuilder = new (function()
 		return result;
 	}
 
-	this.typeBuilders['dropdown'] = function( input )
+	this.typeBuilders['select'] = function( input )
 	{
 		let result = null;
 
@@ -779,7 +779,7 @@ njt.formbuilder = new (function()
 			let label = input.l;
 			let baseId = input.i;
 			let fieldAttr = {
-				'class': 'njt-form-dropdown',
+				'class': 'njt-form-select',
 				'name' : baseId
 			};
 
@@ -817,6 +817,56 @@ njt.formbuilder = new (function()
 			{
 				result.appendChild(field);
 			}
+		}
+
+		return result;
+	}
+	
+	this.typeBuilders['datalist'] = function( input )
+	{
+		let result = null;
+
+		if (njt.js.typeOf(input.i) === njt.types.STRING)
+		{
+			let label = input.l;
+			let baseId = input.i;
+			let fieldAttr = {
+				'type': 'text',
+				'class': 'njt-form-datalist',
+				'name': baseId,
+				'list': baseId+'-list'
+			};
+
+			if (njt.js.typeOf(input.p) === njt.types.STRING)
+			{
+				fieldAttr['placeholder'] = input.p;
+			}
+
+			result = njt.element.createElement('div', baseId+'-wrapper', input.c);
+
+			let field = njt.element.createElement('input', baseId+'-input', null, fieldAttr);
+
+			if (njt.js.typeOf(input.l) === njt.types.STRING)
+			{
+				let label = njt.element.createElement('label', baseId+'-label', null, {"for":baseId+'-input'}, input.l + field.outerHTML);
+				result.appendChild(label);
+			}
+			else
+			{
+				result.appendChild(field);
+			}
+			
+			let datalist = njt.element.createElement('datalist', baseId+'-list', null, null);
+
+			if (njt.js.typeOf(input.v) === njt.types.ARRAY)
+			{
+				for (let i = 0; i < input.v.length; i++)
+				{
+					datalist.appendChild(njt.element.createElement('option', null, null, {"value":input.v[i].v}, input.v[i].h));
+				}
+			}
+			
+			result.appendChild(datalist);
 		}
 
 		return result;
