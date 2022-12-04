@@ -115,7 +115,7 @@ njt.snip = new (function()
 
 	//All variables detected
 	this.vars = new Array();
-	
+
 	this.setCaseSensitive = function(isSensitive)
 	{
 		if (isSensitive == true)
@@ -156,11 +156,11 @@ njt.snip = new (function()
 	this.examineString = function(snipString)
 	{
 		let result = new Array();
-		
+
 		let match = null;
-		
+
 		let matchString = null;
-		
+
 		while ((match = this.regex.exec(snipString)) !== null) {
 			if (this.caseSensitive) { matchString = match[1]; }
 				else { matchString = match[1].toLowerCase(); }
@@ -215,10 +215,10 @@ njt.snip = new (function()
 	{
 		//End result
 		let result = "";
-		
+
 		//Variable markers
 		let markers = new Array();
-		
+
 		//Find each variable and store a marker with it's location and length
 		let match = null;
 		while ((match = this.regex.exec(snipString)) !== null) {
@@ -245,15 +245,15 @@ njt.snip = new (function()
 			index = marker.i + marker.l;
 
 			//Grab the variable key
-			let key = snipString.substring((marker.i + 2), (index - 2));	
-			
-			//Make it lowercase 
+			let key = snipString.substring((marker.i + 2), (index - 2));
+
+			//Make it lowercase
 			if (!this.caseSensitive) { key = key.toLowerCase(); }
 
 			//Check it against our map
 			if(typeof this.valueMap[key] === 'undefined')
 			{
-				//Reinsert variable if no matching key found	
+				//Reinsert variable if no matching key found
 				result += "{:" + key + ":}";
 			}
 			else
@@ -465,7 +465,7 @@ njt.modal = new (function()
 			{
 				//Detect if horizontal scroll bars are in play
 				//Might not work with Right to Left text
-				if (event.offsetX < event.target.clientWidth) // || event.offsetY > event.target.clientHeight) 
+				if (event.offsetX < event.target.clientWidth) // || event.offsetY > event.target.clientHeight)
 				{
 					njt.modal.lastClick = modalElement;
 				}
@@ -485,7 +485,7 @@ njt.modal = new (function()
 					{
 						//Detect if horizontal scroll bars are in play
 						//Might not work with Right to Left text
-						if (event.offsetX < event.target.clientWidth) 
+						if (event.offsetX < event.target.clientWidth)
 						{
 							njt.modal.close(event);
 						}
@@ -496,7 +496,7 @@ njt.modal = new (function()
 			}
 		});
 	}
-	
+
 	this.loadModals = function()
 	{
 		let modalArray = document.querySelectorAll('[modal-wrapper]');
@@ -527,7 +527,7 @@ njt.modal = new (function()
 				{ this.contentArray[currentId].close = currentClose; }
 			else
 				{ this.contentArray[currentId].close = null; }
-			
+
 			modalArray[i].parentNode.removeChild(modalArray[i]);
 		}
 	}
@@ -692,8 +692,9 @@ njt.formbuilder = new (function()
 	input.l = input label
 	input.p = input placeholder
 	input.c = wrapper div class
-	input.v = option values
-	input.s = selected value
+	input.o = option values
+	input.v = value set or selected
+	input.r = rows for textarea (in lines)
 
 	*/
 
@@ -719,6 +720,12 @@ njt.formbuilder = new (function()
 			result = njt.element.createElement('div', baseId+'-wrapper', input.c);
 
 			let field = njt.element.createElement('input', baseId+'-input', null, fieldAttr);
+			
+			if (njt.js.typeOf(input.v) === njt.types.STRING)
+			{
+				//Needs to be done this was as field.value doesn't work until the element is drawn to screen
+				field.setAttribute('value',input.v);
+			}
 
 			if (njt.js.typeOf(input.l) === njt.types.STRING)
 			{
@@ -751,10 +758,23 @@ njt.formbuilder = new (function()
 			{
 				fieldAttr['placeholder'] = input.p;
 			}
+			
+			if (njt.js.typeOf(input.r) === njt.types.NUMBER)
+			{
+				fieldAttr['rows'] = input.r;
+			}
+
+			let value = null;
 
 			result = njt.element.createElement('div', baseId+'-wrapper', input.c);
 
 			let field = njt.element.createElement('textarea', baseId+'-input', null, fieldAttr);
+			
+			if (njt.js.typeOf(input.v) === njt.types.STRING)
+			{
+				//Needs to be done this was as field.value doesn't work until the element is drawn to screen
+				field.innerHTML = input.v;
+			}
 
 			if (njt.js.typeOf(input.l) === njt.types.STRING)
 			{
@@ -784,26 +804,26 @@ njt.formbuilder = new (function()
 			};
 
 			let selected = null;
-			if (njt.js.typeOf(input.s) === njt.types.STRING)
+			if (njt.js.typeOf(input.v) === njt.types.STRING)
 			{
-				selected = input.s;
+				selected = input.v;
 			}
 
 			result = njt.element.createElement('div', baseId+'-wrapper', input.c);
 
 			let field = njt.element.createElement('select', baseId+'-input', null, fieldAttr);
 
-			if (njt.js.typeOf(input.v) === njt.types.ARRAY)
+			if (njt.js.typeOf(input.o) === njt.types.ARRAY)
 			{
-				for (let i = 0; i < input.v.length; i++)
+				for (let i = 0; i < input.o.length; i++)
 				{
-					if (input.v[i].v === selected)
+					if (input.o[i].v === selected)
 					{
-						field.appendChild(njt.element.createElement('option', null, null, {"value":input.v[i].v, "selected": 1}, input.v[i].h));
+						field.appendChild(njt.element.createElement('option', null, null, {"value":input.o[i].v, "selected": 1}, input.o[i].h));
 					}
 					else
 					{
-						field.appendChild(njt.element.createElement('option', null, null, {"value":input.v[i].v}, input.v[i].h));
+						field.appendChild(njt.element.createElement('option', null, null, {"value":input.o[i].v}, input.o[i].h));
 					}
 				}
 			}
@@ -821,7 +841,7 @@ njt.formbuilder = new (function()
 
 		return result;
 	}
-	
+
 	this.typeBuilders['datalist'] = function( input )
 	{
 		let result = null;
@@ -846,6 +866,12 @@ njt.formbuilder = new (function()
 
 			let field = njt.element.createElement('input', baseId+'-input', null, fieldAttr);
 
+			if (njt.js.typeOf(input.v) === njt.types.STRING)
+			{
+				//Needs to be done this was as field.value doesn't work until the element is drawn to screen
+				field.setAttribute('value',input.v);
+			}
+
 			if (njt.js.typeOf(input.l) === njt.types.STRING)
 			{
 				let label = njt.element.createElement('label', baseId+'-label', null, {"for":baseId+'-input'}, input.l + field.outerHTML);
@@ -855,17 +881,17 @@ njt.formbuilder = new (function()
 			{
 				result.appendChild(field);
 			}
-			
+
 			let datalist = njt.element.createElement('datalist', baseId+'-list', null, null);
 
-			if (njt.js.typeOf(input.v) === njt.types.ARRAY)
+			if (njt.js.typeOf(input.o) === njt.types.ARRAY)
 			{
-				for (let i = 0; i < input.v.length; i++)
+				for (let i = 0; i < input.o.length; i++)
 				{
-					datalist.appendChild(njt.element.createElement('option', null, null, {"value":input.v[i].v}, input.v[i].h));
+					datalist.appendChild(njt.element.createElement('option', null, null, {"value":input.o[i].v}, input.o[i].h));
 				}
 			}
-			
+
 			result.appendChild(datalist);
 		}
 

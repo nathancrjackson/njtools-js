@@ -21,13 +21,13 @@ document.generateForm = function()
 	let formStructure = {
 		"t": "njt/form", "e": [
 			{ "t": "p", "h": "Use this form to change or update the notification." },
-			{ "t":"njt/form/datalist", "i":"notificationheading", "c":"gd-s12", "l":"Notification heading", "p":"Hello", "v": [
+			{ "t":"njt/form/datalist", "i":"notificationheading", "c":"gd-s12", "l":"Notification heading", "p":"Hello", "o": [
 				{"v":"Hello", "h":"Hello"},
 				{"v":"Bonjour", "h":"Bonjour"},
 				{"v":"Sup peeps", "h":"Sup peeps"}
-				] },
-			{ "t":"njt/form/textarea", "i":"notificationtext", "c":"gd-s12", "l":"Notification contents", "p":"You can edit the contents of this notification using the form below." },
-			{ "t":"njt/form/select", "i":"notificationdivclass", "c":"gd-s12", "l":"Some options", "s":"opt2", "v": selectValues },
+			]},
+			{ "t":"njt/form/textarea", "i":"notificationtext", "c":"gd-s12", "l":"Notification contents", "p":"You can edit the contents of this notification using the form below.", "r": 4 },
+			{ "t":"njt/form/select", "i":"notificationdivclass", "c":"gd-s12", "l":"Some options", "s":"opt2", "o": selectValues },
 			{ "t":"div", "c":"gd-s12", "e": [
 				{ "t": "a", "i": "updatebutton", "c": "button", "a": {
 					"href":"#",
